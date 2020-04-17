@@ -1,0 +1,40 @@
+<mat-sidenav-container class="sidenav-container">
+    <!-- Menu lateral  -->
+    <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="'over'" [opened]="'false'">
+        <mat-toolbar>Menú</mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item [routerLink]="'home'">
+                <mat-icon aria-hidden="false" aria-label="home icon">home</mat-icon>
+                Home
+            </a>
+            <a mat-list-item [routerLink]="'search'">
+                <mat-icon aria-hidden="false" aria-label="search icon">search</mat-icon>
+                Search
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <!-- Menu superior -->
+        <mat-toolbar color="primary">
+            <div class="example-button-row">
+                <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+                <button mat-icon-button routerLink="home">
+          <img src="assets/img/banner-ico.png" alt="" width="30" height="30"> SpotiFy</button>
+            </div>
+            <!-- login -->
+            <span style="flex: 1 1 auto;"></span>
+            <div class="float-right">
+                <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
+                <a mat-raised-button color="accent" routerLink="register" routerLinkActive="active">Registrar</a>
+            </div>
+        </mat-toolbar>
+
+        <!-- Components -->
+        <div class="container mt-4 mb-3">
+            <router-outlet></router-outlet>
+        </div>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>

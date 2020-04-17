@@ -1,0 +1,24 @@
+<div class="row mb-5">
+    <div class="col">
+        <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Buscar artista...">
+    </div>
+</div>
+
+<app-loading *ngIf="loading" class="m-5"></app-loading>
+<app-tarjetas *ngIf="!loading" [items]="artistas"></app-tarjetas>
+<!--
+<div class="row">
+    <div class="col-md-3" *ngFor="let artista of artistas">
+        <mat-card class="example-card mb-3">
+            <img mat-card-image [src]="artista.images | noimage" alt="Foto artista">
+            <mat-card-content class="p-3">
+                <mat-chip-list class="mat-chip-list-stacked" aria-label="Artistas" *ngIf="artista.genres.length != 0">
+                    <h4 class="text-center"> Género </h4>
+                    <mat-chip *ngFor="let genero of artista.genres " selected color="accent">
+                        {{ genero }}
+                    </mat-chip>
+                </mat-chip-list>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div> -->

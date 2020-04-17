@@ -1,0 +1,85 @@
+<app-loading *ngIf="loadingArtista" class="m-5"></app-loading>
+<mat-progress-bar mode="query"></mat-progress-bar>
+<br>
+<div *ngIf="!loadingArtista" class="row animated fadeIn">
+    <!-- Data artista -->
+    <div class="col-2" fxLayout fxLayoutAlign="center center">
+        <img [src]="artista.images | noimage" class="img-thumbnail" style="border-radius: 100%;" alt="Imagen artista">
+    </div>
+    <div class="col">
+        <h2>{{ artista.name }}</h2>
+        <br>
+        <mat-chip color="accent" selected>
+            <a [href]="artista.external_urls.spotify" target="_blank">
+                <span class="material-icons">launch</span> Ir a la página del artista</a>
+        </mat-chip>
+        <hr>
+        <strong>Popularidad </strong>
+        <mat-icon [matBadge]="artista.popularity" matBadgeColor="accent">stars</mat-icon>
+        <span class="cdk-visually-hidden"></span>
+        <br>
+        <strong class="mt-5">Seguidores </strong>
+        <mat-chip color="primary" selected>{{ artista.followers.total }}</mat-chip>
+
+
+    </div>
+    <!-- Boton regresar -->
+    <div class="col-4 text-right">
+        <button mat-raised-button color="warn" routerLink="/home">
+      <span class="material-icons">
+        arrow_back_ios
+      </span> Regresar
+    </button>
+    </div>
+</div>
+
+<br>
+<mat-progress-bar mode="query"></mat-progress-bar>
+<hr>
+
+<!-- Tabla -->
+<mat-form-field>
+    <mat-label>Filtrar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="...">
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="Foto">
+            <th mat-header-cell *matHeaderCellDef> Foto </th>
+            <td mat-cell *matCellDef="let track">
+                <img [src]="track.album.images | noimage" alt="Image album" class="img-thumb">
+            </td>
+        </ng-container>
+
+        <!-- Progress Column -->
+        <ng-container matColumnDef="Álbum">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Álbum </th>
+            <td mat-cell *matCellDef="let track"> {{track.album.name}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Canción">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Canción </th>
+            <td mat-cell *matCellDef="let track"> {{track.name}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Vista Previa" class="ml-2">
+            <th mat-header-cell *matHeaderCellDef> Reproducir </th>
+            <td mat-cell *matCellDef="let track">
+                <!-- <audio [src]="track.preview_url" controls></audio> -->
+                <iframe [src]="track.uri | domseguro " width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+            </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let track; columns: displayedColumns;" (click)=" onRowClicked(track)">
+        </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]=" [5, 10] "></mat-paginator>
+</div>
